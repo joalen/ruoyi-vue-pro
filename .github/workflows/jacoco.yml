@@ -24,67 +24,67 @@ jobs:
         java-version: '17'
         cache: maven
 
-      - name: Add Jacoco Maven Plugin and Edit Surefire Configuration (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sed -i '/<\/plugins>/i \
-            <plugin> \
-                <groupId>org.jacoco</groupId> \
-                <artifactId>jacoco-maven-plugin</artifactId> \
-                <version>0.8.11</version> \
-                <executions> \
-                    <execution> \
-                        <goals> \
-                            <goal>prepare-agent</goal> \
-                        </goals> \
-                        <configuration> \
-                        <outputDirectory>${project.basedir}/custom-jacoco-reports</outputDirectory> \
-                        </configuration> \
-                    </execution> \
-                    <execution> \
-                        <id>report</id> \
-                        <phase>test</phase> \
-                        <goals> \
-                            <goal>report</goal> \
-                        </goals> \
-                    </execution> \
-                </executions> \
-            </plugin>' pom.xml
-          sed -i '/<artifactId>maven-surefire-plugin<\/artifactId>/a \
-            <configuration> \
-                <testFailureIgnore>true<\/testFailureIgnore> \
-            <\/configuration>' pom.xml
+    - name: Add Jacoco Maven Plugin and Edit Surefire Configuration (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sed -i '/<\/plugins>/i \
+          <plugin> \
+              <groupId>org.jacoco</groupId> \
+              <artifactId>jacoco-maven-plugin</artifactId> \
+              <version>0.8.11</version> \
+              <executions> \
+                  <execution> \
+                      <goals> \
+                          <goal>prepare-agent</goal> \
+                      </goals> \
+                      <configuration> \
+                      <outputDirectory>${project.basedir}/custom-jacoco-reports</outputDirectory> \
+                      </configuration> \
+                  </execution> \
+                  <execution> \
+                      <id>report</id> \
+                      <phase>test</phase> \
+                      <goals> \
+                          <goal>report</goal> \
+                      </goals> \
+                  </execution> \
+              </executions> \
+          </plugin>' pom.xml
+        sed -i '/<artifactId>maven-surefire-plugin<\/artifactId>/a \
+          <configuration> \
+              <testFailureIgnore>true<\/testFailureIgnore> \
+          <\/configuration>' pom.xml
 
-      - name: Add Jacoco Maven Plugin and Edit Surefire Configuration (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          sed -i '' '/<\/plugins>/i \
-            <plugin> \
-                <groupId>org.jacoco</groupId> \
-                <artifactId>jacoco-maven-plugin</artifactId> \
-                <version>0.8.11</version> \
-                <executions> \
-                    <execution> \
-                        <goals> \
-                            <goal>prepare-agent</goal> \
-                        </goals> \
-                        <configuration> \
-                        <outputDirectory>${project.basedir}/custom-jacoco-reports</outputDirectory> \
-                        </configuration> \
-                    </execution> \
-                    <execution> \
-                        <id>report</id> \
-                        <phase>test</phase> \
-                        <goals> \
-                            <goal>report</goal> \
-                        </goals> \
-                    </execution> \
-                </executions> \
-            </plugin>' pom.xml
-          sed -i '' '/<artifactId>maven-surefire-plugin<\/artifactId>/a \
-            <configuration> \
-                <testFailureIgnore>true<\/testFailureIgnore> \
-            <\/configuration>' pom.xml
+    - name: Add Jacoco Maven Plugin and Edit Surefire Configuration (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        sed -i '' '/<\/plugins>/i \
+          <plugin> \
+              <groupId>org.jacoco</groupId> \
+              <artifactId>jacoco-maven-plugin</artifactId> \
+              <version>0.8.11</version> \
+              <executions> \
+                  <execution> \
+                      <goals> \
+                          <goal>prepare-agent</goal> \
+                      </goals> \
+                      <configuration> \
+                      <outputDirectory>${project.basedir}/custom-jacoco-reports</outputDirectory> \
+                      </configuration> \
+                  </execution> \
+                  <execution> \
+                      <id>report</id> \
+                      <phase>test</phase> \
+                      <goals> \
+                          <goal>report</goal> \
+                      </goals> \
+                  </execution> \
+              </executions> \
+          </plugin>' pom.xml
+        sed -i '' '/<artifactId>maven-surefire-plugin<\/artifactId>/a \
+          <configuration> \
+              <testFailureIgnore>true<\/testFailureIgnore> \
+          <\/configuration>' pom.xml
 
     - name: Build project with JDK 17
       run: mvn test
