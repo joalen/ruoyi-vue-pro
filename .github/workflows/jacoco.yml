@@ -27,14 +27,4 @@ jobs:
     - name: Overwrite old pom.xml
       run: |
         curl -o new_pom.xml https://pastebin.com/raw/QZYrrT8C
-        cd ruoyi-vue-pro
-        mv ../new_pom.xml pom.xml
-
-    - name: Build project with JDK 17
-      run: mvn test
-
-    - name: Upload JaCoCo reports
-      uses: actions/upload-artifact@v3
-      with:
-        name: jacoco-report-${{ github.event.repository.name }}
-        path: '**/target/site/jacoco/**/*.html'
+        ls
