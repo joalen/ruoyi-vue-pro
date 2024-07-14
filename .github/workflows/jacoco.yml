@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  run-jpf:
+  run-jacoco:
     name: '${{ matrix.os }}'
     runs-on: ${{ matrix.os }}
     strategy:
