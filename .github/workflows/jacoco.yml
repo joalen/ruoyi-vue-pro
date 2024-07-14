@@ -30,7 +30,9 @@ jobs:
         mv new_pom.xml pom.xml
 
     - name: Build project with JDK 17
-      run: mvn test
+      run: | 
+        mvn dependency:purge-local-repository
+        mvn test
 
     - name: Checkout Export Repository
       uses: actions/checkout@v2
