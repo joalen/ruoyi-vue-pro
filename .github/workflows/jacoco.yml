@@ -96,6 +96,7 @@ jobs:
             # Find .html and .xml files within each directory
             find "$dir" -type f \( -name "*.html" -o -name "*.xml" \) -exec cp {} ./jacoco-reports \;
         done
+        ls -l ./jacoco-reports/*
         REPO_NAME=$(basename $GITHUB_REPOSITORY)
         mkdir -p jacoco-exports/jacoco-reports-for-$REPO_NAME
         cp -r ./jacoco-reports/* jacoco-exports/jacoco-reports-for-$REPO_NAME
