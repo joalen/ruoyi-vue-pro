@@ -32,12 +32,15 @@ jobs:
             <plugin> \
                 <groupId>org.jacoco<\/groupId> \
                 <artifactId>jacoco-maven-plugin<\/artifactId> \
-                <version>0.8.5<\/version> \
+                <version>0.8.7<\/version> \
                 <executions> \
                     <execution> \
                         <goals> \
                             <goal>prepare-agent<\/goal> \
                         <\/goals> \
+                        <configuration> \
+                          <outputDirectory>${project.basedir}/custom-jacoco-reports</outputDirectory> \
+                        </configuration> \
                     <\/execution> \
                     <execution> \
                         <id>report<\/id> \
@@ -83,11 +86,6 @@ jobs:
     - name: Build project with JDK 17
       run: mvn test
 
-    - name: Export Jacoco Reports
-      run: |
-        mkdir -p jacoco-reports
-        find target -type d -name 'jacoco' -exec cp -r {} jacoco-reports/ \;
-
     - name: Checkout Export Repository
       uses: actions/checkout@v2
       with:
@@ -98,7 +96,7 @@ jobs:
       run: |
         REPO_NAME=$(basename $GITHUB_REPOSITORY)
         mkdir -p jacoco-exports/jacoco-reports-for-$REPO_NAME
-        cp -r jacoco-reports/* jacoco-exports/jacoco-reports/
+        cp -r custom-jacoco-reports/* jacoco-exports/jacoco-reports-for-$REPO_NAME
         cd jacoco-exports
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
