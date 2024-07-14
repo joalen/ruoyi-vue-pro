@@ -11,7 +11,12 @@ jobs:
       matrix:
         os: [ubuntu-22.04, macos-latest]
 
-    steps:  
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: 02e0f5d0348e381a23c23909b2ec1e998de7ed9d
+      
     - name: Set up JDK 17 for project
       uses: actions/setup-java@v3
       with:
@@ -21,8 +26,6 @@ jobs:
 
     - name: Overwrite old pom.xml
       run: |
-        git clone https://github.com/YunaiV/ruoyi-vue-pro
-        cd ruoyi-vue-pro
         curl -o new_pom.xml https://pastebin.com/raw/KuEbu50Y
         mv new_pom.xml pom.xml
 
